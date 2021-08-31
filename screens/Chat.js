@@ -56,8 +56,10 @@ const Chat = ({ navigation }) => {
     }, []);
 
     const onSend = useCallback((messages = []) => {
-        setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
-    }, [])
+        setMessages(previousMessages => GiftedChat.append(previousMessages, messages));
+        const { _id, createdAt, text, user,} = messages[0];
+        db.collection('chats').add({ _id, createdAt,  text, user });
+    }, []);
 
     return (
         <GiftedChat
